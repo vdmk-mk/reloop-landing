@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Popup</title>
+  <!-- Schriftart Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: rgba(0, 0, 0, 0.6);
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .popup {
+      width: 1150px;
+      height: 750px;
+      display: flex;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .popup-left {
+      width: 599px;
+      height: 100%;
+      background-color: #041623;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: start;
+      padding-top: 30px;
+      box-sizing: border-box;
+      text-align: center;
+      position: relative;
+    }
+
+    .popup-right {
+      width: 551px;
+      height: 100%;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .popup-right img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+
+    .title-top {
+      color: #09AAE4;
+      font-size: 32px;
+      margin: 0;
+      font-weight: 600;
+    }
+
+    .title-main {
+      color: #FFFFFF;
+      font-size: 36px;
+      font-weight: 700;
+      margin: 5px 0 20px 0;
+      line-height: 1.2;
+      white-space: nowrap;
+      text-transform: uppercase;
+    }
+
+    .shade-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 10px;
+      margin-bottom: 0;
+    }
+
+    .shade-block img {
+      width: 200px;
+      height: auto;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .shade-label {
+      font-size: 13px;
+      font-weight: 500;
+      color: #FFFFFF;
+      opacity: 0.9;
+      line-height: 18.2px;
+      margin-top: 0;
+    }
+
+    .benefits {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+      width: 360px;
+      margin-top: 30px;
+    }
+
+    .benefit-item {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 15px;
+      width: 100%;
+      padding-left: 3px;
+    }
+
+    .benefit-item img {
+      width: 24px;
+      height: 24px;
+      flex-shrink: 0;
+      filter: brightness(0) saturate(100%) invert(47%) sepia(87%) saturate(3062%) hue-rotate(168deg) brightness(98%) contrast(91%);
+    }
+
+    .benefit-item p {
+      font-size: 16px;
+      font-weight: 600;
+      color: #FFFFFF;
+      margin: 0;
+      text-align: left;
+      line-height: 1.3;
+    }
+
+    /* === Preisblock === */
+    .price-block {
+      margin-top: 30px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 5px;
+    }
+
+    .price-now {
+      color: #FFFFFF;
+      font-size: 48px;
+      font-weight: 700;
+      margin: 0;
+      line-height: 1;
+    }
+
+    .price-label {
+      color: #FFFFFF;
+      font-size: 20px;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    .price-old-row {
+      display: flex;
+      align-items: baseline;
+      gap: 5px;
+    }
+
+    .price-old-label {
+      color: #DE3533;
+      font-size: 12px;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    .price-old {
+      color: #DE3533;
+      font-size: 20px;
+      font-weight: 700;
+      margin: 0;
+      text-decoration: line-through;
+      line-height: 1;
+    }
+
+    /* === Button "JETZT BUCHEN" === */
+    .btn-book {
+      width: 247px;
+      height: 40px;
+      background-color: #09AAE4;
+      color: #FFFFFF;
+      border: none;
+      border-radius: 15px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      font-size: 20px;
+      text-transform: uppercase;
+      text-align: center;
+      margin-top: 20px;
+      cursor: pointer;
+    }
+
+    /* === Button "Nein, danke" === */
+    .btn-decline {
+      background: none;
+      border: none;
+      color: #C3C3C3;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 500;
+      font-size: 13px;
+      text-decoration: underline;
+      margin-top: 15px;
+      cursor: pointer;
+      line-height: 18.2px;
+    }
+
+    /* === Unterer Text === */
+    .footer-text {
+      position: absolute;
+      bottom: 20px;
+      left: 48px;
+      right: 48px;
+      color: #C3C3C3;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 500;
+      font-size: 13px;
+      line-height: 18.2px;
+      text-align: center;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="popup">
+    <div class="popup-left">
+      <h2 class="title-top">Frühlings-Special</h2>
+      <h1 class="title-main">DIAMOND BLEACHING PAKET</h1>
+
+      <div class="shade-block">
+        <img src="images/tooth-shades-row.png" alt="Tooth Shades">
+        <p class="shade-label">(maximale Aufhellung)</p>
+      </div>
+
+      <div class="benefits">
+        <div class="benefit-item">
+          <img src="images/Icon1.svg" alt="Icon 1">
+          <p>Aufhellung um bis zu 9 Farbnnuancen</p>
+        </div>
+        <div class="benefit-item">
+          <img src="images/Icon2.svg" alt="Icon 2">
+          <p>80 Minuten Behandlungsdauer</p>
+        </div>
+        <div class="benefit-item">
+          <img src="images/Icon3.svg" alt="Icon 3">
+          <p>3 Gel Anwendungen</p>
+        </div>
+        <div class="benefit-item">
+          <img src="images/Icon4.svg" alt="Icon 4">
+          <p>Ohne Schmerzen & Nebenwirkungen</p>
+        </div>
+        <div class="benefit-item">
+          <img src="images/Icon5.svg" alt="Icon 5">
+          <p>REFRESH-Karte inklusive</p>
+        </div>
+      </div>
+
+      <!-- ✅ Preisblock -->
+      <div class="price-block">
+        <div class="price-row">
+          <p class="price-label">nur</p>
+          <p class="price-now">169€</p>
+        </div>
+        <div class="price-old-row">
+          <p class="price-old-label">statt</p>
+          <p class="price-old">299€</p>
+        </div>
+      </div>
+
+      <!-- ✅ Button "JETZT BUCHEN" -->
+      <button class="btn-book" onclick="closePopup()">JETZT BUCHEN</button>
+
+      <!-- ✅ Button "Nein, danke" -->
+      <button class="btn-decline" onclick="closePopup()">Nein, danke</button>
+
+      <!-- ✅ Unterer Text -->
+      <p class="footer-text">
+        Perlweiß Düsseldorf – für ein wunderschönes und ästhetisches Lächeln! <br>
+        Erhalte jetzt strahlend weiße Zähne zum Sonderpreis! Unser professionelles Team bietet eine schnelle, effektive und sichere Zahnaufhellung vor Ort für nur 169€ (statt 299€)
+      </p>
+    </div>
+
+    <div class="popup-right">
+      <img src="images/diamond-bleaching-paket.jpg" alt="Diamond Bleaching Paket">
+    </div>
+  </div>
+
+  <script>
+    function closePopup() {
+      document.querySelector('.popup').style.display = 'none';
+    }
+  </script>
+</body>
+</html>
