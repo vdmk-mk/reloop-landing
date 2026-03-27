@@ -1,304 +1,247 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Popup</title>
-  <!-- Schriftart Poppins -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reloop Performance Set – Angebot</title>
+  
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+  
   <style>
+    :root {
+      --accent: #FFD700; 
+      --bg: #000000;
+      --text: #ffffff;
+      --text-dim: #E0E0E0;
+    }
+
+    * { box-sizing: border-box; }
+
     body {
       margin: 0;
+      padding: 0;
       height: 100vh;
+
+      /* Zentriert das Popup sauber im Viewport */
       display: flex;
       justify-content: center;
       align-items: center;
-      background-color: rgba(0, 0, 0, 0.6);
+
+      background-color: #121212;
       font-family: 'Poppins', sans-serif;
     }
 
     .popup {
-      width: 1150px;
-      height: 750px;
       display: flex;
-      border-radius: 10px;
+      width: 1000px;
+      height: 650px;
+      background: var(--bg);
+      border-radius: 20px;
       overflow: hidden;
-      box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
+
+      /* Weicher Schatten für Tiefe */
+      box-shadow: 0 40px 100px rgba(0,0,0,0.8);
     }
 
-    .popup-left {
-      width: 599px;
-      height: 100%;
-      background-color: #041623;
-      color: white;
+    .content-side {
+      flex: 1.1;
+
+      /* Innenabstand bewusst großzügig gewählt */
+      padding: 60px 40px 50px 70px;
+
       display: flex;
       flex-direction: column;
+      justify-content: center;
+    }
+
+    .badge {
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 2px; 
+      font-weight: 700;
+      font-size: 13px;
+
+      /* Kleiner Abstand zum Titel */
+      margin-bottom: 8px;
+
+      white-space: nowrap;
+    }
+
+    h1 {
+      font-size: 54px;
+      font-weight: 800;
+
+      /* Abstand nach unten für bessere Lesbarkeit */
+      margin: 0 0 20px 0;
+
+      line-height: 1.05;
+      color: var(--text);
+    }
+
+    .features {
+      list-style: none;
+      padding: 0;
+
+      /* Abstand zur Preisbox */
+      margin: 0 0 25px 0;
+    }
+
+    .features li {
+      margin-bottom: 10px;
+      font-size: 17px;
+      color: var(--text-dim);
+      display: flex;
       align-items: center;
-      justify-content: start;
-      padding-top: 30px;
-      box-sizing: border-box;
-      text-align: center;
+      font-weight: 400;
+    }
+
+    .features li::before {
+      content: '';
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      margin-right: 15px;
+      border-radius: 50%;
+      border: 3px solid var(--accent);
+      background: transparent;
+
+      /* Kleiner visueller Effekt im Punkt */
+      box-shadow: inset 0 0 0 2px var(--bg);
+
+      flex-shrink: 0;
+    }
+
+    .price-tag {
+      /* Etwas Luft vor dem CTA */
+      margin-bottom: 30px;
+    }
+
+    .old-price {
+      text-decoration: line-through;
+      color: #CC0000;
+      font-size: 22px;
+      font-weight: 600;
+      display: block;
+
+      margin-bottom: 2px;
+    }
+
+    .new-price {
+      /* Bewusst etwas reduziert für bessere Balance mit CTA */
+      font-size: 64px;
+      font-weight: 800;
+      color: var(--accent);
+      display: block;
+      line-height: 1;
+    }
+
+    .btn-cta {
+      background: #FFFFFF;
+      color: #000;
+      border: none;
+
+      /* Größere CTA für stärkeren Fokus */
+      width: 300px;
+      height: 70px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      font-size: 20px;
+      font-weight: 700;
+      text-transform: uppercase;
+
+      border-radius: 14px;
+      cursor: pointer;
+      transition: 0.3s ease;
+      text-decoration: none;
+
+      /* Gewünschter Abstand zum Footer */
+      margin-bottom: 16px;
+    }
+
+    .btn-cta:hover {
+      background: var(--accent);
+
+      /* Leichter Hover-Effekt */
+      transform: translateY(-2px);
+    }
+
+    .footer-credit {
+      /* Drückt den Footer nach unten */
+      margin-top: auto;
+
+      font-size: 11px;
+      color: #555;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .image-side {
+      flex: 0.9;
       position: relative;
     }
 
-    .popup-right {
-      width: 551px;
-      height: 100%;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .popup-right img {
+    .image-side img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center;
-      display: block;
     }
 
-    .title-top {
-      color: #09AAE4;
-      font-size: 32px;
-      margin: 0;
-      font-weight: 600;
-    }
-
-    .title-main {
-      color: #FFFFFF;
-      font-size: 36px;
-      font-weight: 700;
-      margin: 5px 0 20px 0;
-      line-height: 1.2;
-      white-space: nowrap;
-      text-transform: uppercase;
-    }
-
-    .shade-block {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-top: 10px;
-      margin-bottom: 0;
-    }
-
-    .shade-block img {
-      width: 200px;
-      height: auto;
-      display: block;
-      margin-bottom: 5px;
-    }
-
-    .shade-label {
-      font-size: 13px;
-      font-weight: 500;
-      color: #FFFFFF;
-      opacity: 0.9;
-      line-height: 18.2px;
-      margin-top: 0;
-    }
-
-    .benefits {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 15px;
-      width: 360px;
-      margin-top: 30px;
-    }
-
-    .benefit-item {
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      gap: 15px;
-      width: 100%;
-      padding-left: 3px;
-    }
-
-    .benefit-item img {
-      width: 24px;
-      height: 24px;
-      flex-shrink: 0;
-      filter: brightness(0) saturate(100%) invert(47%) sepia(87%) saturate(3062%) hue-rotate(168deg) brightness(98%) contrast(91%);
-    }
-
-    .benefit-item p {
-      font-size: 16px;
-      font-weight: 600;
-      color: #FFFFFF;
-      margin: 0;
-      text-align: left;
-      line-height: 1.3;
-    }
-
-    /* === Preisblock === */
-    .price-block {
-      margin-top: 30px;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 5px;
-    }
-
-    .price-row {
-      display: flex;
-      align-items: baseline;
-      gap: 5px;
-    }
-
-    .price-now {
-      color: #FFFFFF;
-      font-size: 48px;
-      font-weight: 700;
-      margin: 0;
-      line-height: 1;
-    }
-
-    .price-label {
-      color: #FFFFFF;
-      font-size: 20px;
-      font-weight: 700;
-      margin: 0;
-    }
-
-    .price-old-row {
-      display: flex;
-      align-items: baseline;
-      gap: 5px;
-    }
-
-    .price-old-label {
-      color: #DE3533;
-      font-size: 12px;
-      font-weight: 700;
-      margin: 0;
-    }
-
-    .price-old {
-      color: #DE3533;
-      font-size: 20px;
-      font-weight: 700;
-      margin: 0;
-      text-decoration: line-through;
-      line-height: 1;
-    }
-
-    /* === Button "JETZT BUCHEN" === */
-    .btn-book {
-      width: 247px;
-      height: 40px;
-      background-color: #09AAE4;
-      color: #FFFFFF;
-      border: none;
-      border-radius: 15px;
-      font-family: 'Poppins', sans-serif;
-      font-weight: 600;
-      font-size: 20px;
-      text-transform: uppercase;
-      text-align: center;
-      margin-top: 20px;
-      cursor: pointer;
-    }
-
-    /* === Button "Nein, danke" === */
-    .btn-decline {
-      background: none;
-      border: none;
-      color: #C3C3C3;
-      font-family: 'Poppins', sans-serif;
-      font-weight: 500;
-      font-size: 13px;
-      text-decoration: underline;
-      margin-top: 15px;
-      cursor: pointer;
-      line-height: 18.2px;
-    }
-
-    /* === Unterer Text === */
-    .footer-text {
+    .image-overlay {
       position: absolute;
-      bottom: 20px;
-      left: 48px;
-      right: 48px;
-      color: #C3C3C3;
-      font-family: 'Poppins', sans-serif;
-      font-weight: 500;
-      font-size: 13px;
-      line-height: 18.2px;
-      text-align: center;
-      margin-top: 30px;
+      top: 0; 
+      left: 0; 
+      width: 100%; 
+      height: 100%;
+
+      /* Verlauf für besseren Übergang zum Content */
+      background: linear-gradient(to right, var(--bg) 0%, transparent 15%);
     }
   </style>
 </head>
-
 <body>
+
   <div class="popup">
-    <div class="popup-left">
-      <h2 class="title-top">Frühlings-Special</h2>
-      <h1 class="title-main">DIAMOND BLEACHING PAKET</h1>
+    <div class="content-side">
+      
+      <!-- Hinweis auf zeitlich begrenztes Angebot -->
+      <div class="badge">Zeitlich begrenztes Angebot</div>
 
-      <div class="shade-block">
-        <img src="images/tooth-shades-row.png" alt="Tooth Shades">
-        <p class="shade-label">(maximale Aufhellung)</p>
+      <h1>Reloop <br> Performance Set</h1>
+      
+      <ul class="features">
+        <!-- Produkt-Highlights -->
+        <li>4-Kanal DJ-Controller in Premium-Qualität</li>
+        <li>Klang auf Studio-Niveau</li>
+        <li>Nahtlose Integration mit Algoriddim</li>
+        <li>Performance Pads mit direktem Feedback</li>
+      </ul>
+
+      <div class="price-tag">
+        <!-- Alter vs. neuer Preis -->
+        <span class="old-price">1.299 €</span>
+        <span class="new-price">999 €</span>
       </div>
 
-      <div class="benefits">
-        <div class="benefit-item">
-          <img src="images/Icon1.svg" alt="Icon 1">
-          <p>Aufhellung um bis zu 9 Farbnnuancen</p>
-        </div>
-        <div class="benefit-item">
-          <img src="images/Icon2.svg" alt="Icon 2">
-          <p>80 Minuten Behandlungsdauer</p>
-        </div>
-        <div class="benefit-item">
-          <img src="images/Icon3.svg" alt="Icon 3">
-          <p>3 Gel Anwendungen</p>
-        </div>
-        <div class="benefit-item">
-          <img src="images/Icon4.svg" alt="Icon 4">
-          <p>Ohne Schmerzen & Nebenwirkungen</p>
-        </div>
-        <div class="benefit-item">
-          <img src="images/Icon5.svg" alt="Icon 5">
-          <p>REFRESH-Karte inklusive</p>
-        </div>
+      <!-- Call-to-Action -->
+      <a href="#" class="btn-cta">Jetzt ansehen</a>
+      
+      <!-- Kleine Signatur -->
+      <div class="footer-credit">
+        Designkonzept von <strong>Vadym Sechka</strong>
       </div>
-
-      <!-- ✅ Preisblock -->
-      <div class="price-block">
-        <div class="price-row">
-          <p class="price-label">nur</p>
-          <p class="price-now">169€</p>
-        </div>
-        <div class="price-old-row">
-          <p class="price-old-label">statt</p>
-          <p class="price-old">299€</p>
-        </div>
-      </div>
-
-      <!-- ✅ Button "JETZT BUCHEN" -->
-      <button class="btn-book" onclick="closePopup()">JETZT BUCHEN</button>
-
-      <!-- ✅ Button "Nein, danke" -->
-      <button class="btn-decline" onclick="closePopup()">Nein, danke</button>
-
-      <!-- ✅ Unterer Text -->
-      <p class="footer-text">
-        Perlweiß Düsseldorf – für ein wunderschönes und ästhetisches Lächeln! <br>
-        Erhalte jetzt strahlend weiße Zähne zum Sonderpreis! Unser professionelles Team bietet eine schnelle, effektive und sichere Zahnaufhellung vor Ort für nur 169€ (statt 299€)
-      </p>
     </div>
 
-    <div class="popup-right">
-      <img src="images/diamond-bleaching-paket.jpg" alt="Diamond Bleaching Paket">
+    <div class="image-side">
+      <div class="image-overlay"></div>
+
+      <!-- Produktbild -->
+      <img src="reloop-product.jpg" alt="Reloop DJ Controller">
     </div>
   </div>
 
-  <script>
-    function closePopup() {
-      document.querySelector('.popup').style.display = 'none';
-    }
-  </script>
 </body>
 </html>
